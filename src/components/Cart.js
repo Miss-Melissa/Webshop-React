@@ -115,6 +115,11 @@ export default function Store() {
 	const dispatch = useDispatch();
 	const totalPrice = items.reduce((total, b) => total + b.price, 0);
 
+
+	const clear = (index) => {
+		dispatch({ type: "CLEARALL", index });
+	}
+
 	const handleRemove = (index) => {
 		dispatch({ type: "REMOVE", index });
 	};
@@ -124,7 +129,7 @@ export default function Store() {
 	}
 	return (
 		<>
-			<div className="total-position"><p className="total">Total price: ${totalPrice}</p></div>
+			<div className="total-position"><p className="cart-total-price">Total price: ${totalPrice}</p></div>
 			{items.map((item, index) => (
 				<CartItem
 					handleRemove={handleRemove}
@@ -132,7 +137,16 @@ export default function Store() {
 					product={item}
 					index={index}
 				/>
+
 			))}
+			<br />
+			<div>
+				<button className="cart-clear" onClick={clear}>
+					CLEAR
+				</button>
+			</div>
+			<br />
+			<br />
 		</>
 	);
 }
